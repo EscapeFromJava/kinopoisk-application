@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<div>
+    <h1>Movies list</h1>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Genre</th>
+            <th>Year</th>
+            <th>Director</th>
+            <th>Actors</th>
+        </tr>
+        <tr th:each="movie : ${movies}">
+            <td th:text="${movie.title}"/>
+            <td th:text="${movie.description}"/>
+            <td th:text="${movie.genre}"/>
+            <td th:text="${movie.year}"/>
+            <td th:text="${movie.director}"/>
+            <td th:text="${movie.actors}"/>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
