@@ -7,11 +7,10 @@ import com.example.kinopoiskapplication.model.entity.enums.Genre;
 import com.example.kinopoiskapplication.repository.ActorRepository;
 import com.example.kinopoiskapplication.repository.DirectorRepository;
 import com.example.kinopoiskapplication.repository.MovieRepository;
-import jakarta.annotation.PostConstruct;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Component

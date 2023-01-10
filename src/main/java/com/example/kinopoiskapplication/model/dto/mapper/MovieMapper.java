@@ -1,6 +1,5 @@
 package com.example.kinopoiskapplication.model.dto.mapper;
 
-import com.example.kinopoiskapplication.model.dto.ActorDto;
 import com.example.kinopoiskapplication.model.dto.MovieDto;
 import com.example.kinopoiskapplication.model.entity.Movie;
 
@@ -15,11 +14,7 @@ public class MovieMapper {
                 .director(movie.getDirector().getFirstName() + " " + movie.getDirector().getLastName())
                 .year(movie.getYear())
                 .actors(movie.getActors().stream().map(
-                                a -> ActorDto.builder()
-                                        .firstName(a.getFirstName())
-                                        .lastName(a.getLastName())
-                                        .birthday(a.getBirthday().toString())
-                                        .build())
+                                a -> a.getFirstName() + " " + a.getLastName())
                         .collect(Collectors.toList()))
                 .build();
     }

@@ -1,7 +1,5 @@
 package com.example.kinopoiskapplication.service;
 
-import com.example.kinopoiskapplication.model.dto.ActorDto;
-import com.example.kinopoiskapplication.model.dto.DirectorDto;
 import com.example.kinopoiskapplication.model.dto.MovieDto;
 import com.example.kinopoiskapplication.model.dto.mapper.MovieMapper;
 import com.example.kinopoiskapplication.model.entity.Actor;
@@ -9,10 +7,11 @@ import com.example.kinopoiskapplication.model.entity.Director;
 import com.example.kinopoiskapplication.model.entity.Movie;
 import com.example.kinopoiskapplication.model.entity.enums.Genre;
 import com.example.kinopoiskapplication.repository.MovieRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,42 +31,47 @@ public class MovieService {
     }
 
     public MovieDto getMovieById(Long id) {
-        Movie movie = movieRepository.findById(id).get();
+        Movie movie = movieRepository.getMovieById(id);
         return MovieMapper.movieToMovieDto(movie);
     }
 
     @Transactional
     public void saveMovie(MovieDto movieDto) {
         String[] dArray = movieDto.getDirector().split(" ");
-        Director director = directorService.getDirectorByName(dArray[0], dArray[1]).orElse(
-                directorService.saveDirector(
-                        DirectorDto.builder().firstName(dArray[0]).lastName(dArray[1]).build())
-        );
+        Optional<Director> optionalDirector = directorService.getDirectorByName(dArray[0], dArray[1]);
+        Director director;
+        if (optionalDirector.isPresent()) {
+            director = optionalDirector.get();
+        } else {
+            director = Director.builder().firstName(dArray[0]).lastName(dArray[1]).build();
+        }
 
         List<Actor> actorList = new ArrayList<>();
-        for (ActorDto actor : movieDto.getActors()) {
-            Optional<Actor> actorByName = actorService.getActorByName(actor.getFirstName(), actor.getLastName());
+        for (String actor : movieDto.getActors()) {
+            String[] aArray = actor.split(" ");
+            Optional<Actor> actorByName = actorService.getActorByName(aArray[0], aArray[1]);
             if (actorByName.isPresent()) {
                 actorList.add(actorByName.get());
             } else {
-                actorService.saveActor(
-                        ActorDto.builder()
-                                .firstName(actor.getFirstName())
-                                .lastName(actor.getLastName())
-                                .build());
+                actorList.add(Actor.builder()
+                        .firstName(aArray[0])
+                        .lastName(aArray[1])
+                        .birthday(LocalDate.now())
+                        .build());
             }
 
-            Movie movie = Movie.builder()
-                    .title(movieDto.getTitle())
-                    .description(movieDto.getDescription())
-                    .genre(Genre.valueOf(movieDto.getGenre().toUpperCase()))
-                    .director(director)
-                    .year(movieDto.getYear())
-                    .actors(actorList)
-                    .build();
-
-            movieRepository.save(movie);
         }
+
+        Movie movie = Movie.builder()
+                .title(movieDto.getTitle())
+                .description(movieDto.getDescription())
+                .genre(Genre.valueOf(movieDto.getGenre().toUpperCase()))
+                .director(director)
+                .year(movieDto.getYear())
+                .actors(actorList)
+                .build();
+
+        movieRepository.save(movie);
     }
 
     public MovieDto getMovieByTitle(String title) {

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -20,6 +21,13 @@ public class MainController {
         List<MovieDto> movies = movieService.getMovies();
         model.addAttribute("movies", movies);
         return "index";
+    }
+
+    @GetMapping("/movies/{title}")
+    public String getMovieById(@PathVariable String title, Model model) {
+        MovieDto movie = movieService.getMovieByTitle(title);
+        model.addAttribute("movie", movie);
+        return "movie";
     }
 
 }

@@ -1,6 +1,6 @@
 package com.example.kinopoiskapplication.model.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 @Builder

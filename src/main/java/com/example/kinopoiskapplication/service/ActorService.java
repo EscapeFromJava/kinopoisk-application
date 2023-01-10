@@ -3,10 +3,10 @@ package com.example.kinopoiskapplication.service;
 import com.example.kinopoiskapplication.model.dto.ActorDto;
 import com.example.kinopoiskapplication.model.entity.Actor;
 import com.example.kinopoiskapplication.repository.ActorRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Optional;
 

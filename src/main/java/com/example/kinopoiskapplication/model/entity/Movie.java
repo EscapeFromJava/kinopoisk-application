@@ -1,7 +1,7 @@
 package com.example.kinopoiskapplication.model.entity;
 
 import com.example.kinopoiskapplication.model.entity.enums.Genre;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;

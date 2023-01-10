@@ -11,16 +11,18 @@
 </head>
 <body>
 
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <h3 class="text-center">
-                <div class="p-3 bg-primary bg-gradient text-white">Movies</div>
+                <div class="p-3 bg-primary bg-gradient text-white">
+                    <td th:text="${movie.title}"/>
+                </div>
             </h3>
-            <table class="table">
+            <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>Title</th>
                     <th>Description</th>
                     <th>Genre</th>
                     <th>Year</th>
@@ -29,8 +31,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="movie : ${movies}">
-                    <td><a th:href="@{movies/{title}(title=${movie.title})}" th:text="${movie.title}"/></td>
+                <tr>
                     <td th:text="${movie.description}"/>
                     <td th:text="${movie.genre}"/>
                     <td th:text="${movie.year}"/>
@@ -42,7 +43,7 @@
         </div>
     </div>
 
-    <a href="" class="btn btn-primary">null</a>
+    <a th:href="@{/movies}" class="btn btn-primary">Back</a>
 
 </div>
 

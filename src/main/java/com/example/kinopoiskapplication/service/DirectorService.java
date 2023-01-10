@@ -3,7 +3,7 @@ package com.example.kinopoiskapplication.service;
 import com.example.kinopoiskapplication.model.dto.DirectorDto;
 import com.example.kinopoiskapplication.model.entity.Director;
 import com.example.kinopoiskapplication.repository.DirectorRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

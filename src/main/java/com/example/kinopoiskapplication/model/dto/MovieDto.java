@@ -14,5 +14,5 @@ public class MovieDto implements Serializable {
     private String genre;
     private int year;
     private String director;
-    private List<ActorDto> actors;
+    private List<String> actors;
 }
