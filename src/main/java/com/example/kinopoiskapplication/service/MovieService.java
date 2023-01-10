@@ -30,7 +30,7 @@ public class MovieService {
                 .toList();
     }
 
-    public MovieDto getMovieById(Long id) {
+    public MovieDto getMovieDtoById(Long id) {
         Movie movie = movieRepository.getMovieById(id);
         return MovieMapper.movieToMovieDto(movie);
     }
@@ -77,5 +77,9 @@ public class MovieService {
     public MovieDto getMovieByTitle(String title) {
         Movie movie = movieRepository.getMovieByTitle(title).get();
         return MovieMapper.movieToMovieDto(movie);
+    }
+
+    public Movie getMovieById(Long id) {
+        return movieRepository.getMovieById(id);
     }
 }
